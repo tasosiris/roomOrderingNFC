@@ -2,20 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global white theme setup */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 0, 0, 0; /* Black text */
+  --background-color: 255, 255, 255; /* White background */
+  --hover-gray-rgb: 128, 128, 128; /* Gray color for hover */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+/* Applying white theme to the body */
 body {
   padding: 1rem;
+  color: rgb(var(--foreground-rgb)); /* Black text */
+  background-color: rgb(var(--background-color)); /* Solid white background */
+  font-family: 'Inter', sans-serif; /* Modern, clean font */
+  font-size: 16px;
+}
+
+/* Modern styles for headings */
+h1, h2, h3, h4, h5, h6 {
+  color: rgb(var(--foreground-rgb));
+  font-weight: 600; /* Bold for headings */
+  margin-bottom: 1rem;
+}
+
+/* Modern button styles */
+button {
+  background-color: rgb(var(--foreground-rgb)); /* Black button */
+  color: rgb(var(--background-color)); /* White text on button */
+  padding: 0.75rem 1.5rem; /* More padding for modern look */
+  border: none;
+  border-radius: 0.375rem; /* Rounded corners */
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #333; /* Slightly darker on hover */
+  transform: scale(1.05); /* Slight zoom on hover for interaction */
+  cursor: pointer;
+}
+
+/* Modern link styles */
+a {
+  color: rgb(var(--foreground-rgb)); /* Black links */
+  text-decoration: none; /* Remove underline */
+  font-weight: 500;
+  transition: color 0.2s ease; /* Smooth transition for color change */
+}
+
+a:hover {
+  color: rgb(var(--hover-gray-rgb)); /* Turn gray on hover */
+  text-decoration: none; /* No underline on hover */
+}
+
+/* Styling the navbar with modern look */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Distribute left, center, and right sections */
+  align-items: center; /* Vertically align items */
+  padding: 1rem 2rem; /* Add some padding */
+  background-color: rgb(var(--background-color)); /* White background for the navbar */
+  color: rgb(var(--foreground-rgb)); /* Black text */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-center {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.nav-link {
+  color: rgb(var(--foreground-rgb));
+  text-decoration: none;
+  font-size: 1.25rem; /* Larger text for modern look */
+  margin-left: 0.5rem;
+}
+
+.nav-link:hover {
+  color: rgb(var(--hover-gray-rgb)); /* Change to gray on hover */
+  text-decoration: none; /* No underline on hover */
+}
+
+.nav-item {
+  list-style: none;
+  display: inline-block;
+}
+
+/* Add space between the icon and text */
+.navbar-left .nav-link, .navbar-right .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .navbar-center {
+    margin: 1rem 0;
+  }
 }
