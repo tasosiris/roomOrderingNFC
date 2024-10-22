@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -14,4 +14,30 @@ model Menu {
   id          Int       @id @default(autoincrement())
   name        String    @unique
   description String?
+  price       Float     // Price of the menu item
+  orders      OrderItem[] // Relation to order items
+}
+
+model Room {
+  id          Int       @id @default(autoincrement())
+  roomNumber  String    @unique // Unique room identifier (used with QR code)
+  orders      Order[]   // Relation to the orders from this room
+}
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now()) // Timestamp of the order
+  status      String    @default("pending") // Status (pending, in-progress, completed)
+  room        Room      @relation(fields: [roomId], references: [id])
+  roomId      Int       // Foreign key to Room
+  orderItems  OrderItem[] // Relation to the items in the order
+}
+
+model OrderItem {
+  id          Int       @id @default(autoincrement())
+  quantity    Int       // Number of items ordered
+  menu        Menu      @relation(fields: [menuId], references: [id])
+  menuId      Int       // Foreign key to Menu
+  order       Order     @relation(fields: [orderId], references: [id])
+  orderId     Int       // Foreign key to Order
 }
