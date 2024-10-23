@@ -1,6 +1,3 @@
-// This is your Prisma schema file
-// Learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,34 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Menu {
+model Item {
   id          Int       @id @default(autoincrement())
   name        String    @unique
   description String?
-  price       Float     // Price of the menu item
-  orders      OrderItem[] // Relation to order items
-}
-
-model Room {
-  id          Int       @id @default(autoincrement())
-  roomNumber  String    @unique // Unique room identifier (used with QR code)
-  orders      Order[]   // Relation to the orders from this room
+  price       Float     // Price of the item
+  course      String?   // Course (e.g., appetizer, main, dessert)
+  orderItems  OrderItem[] // Relation to OrderItem that connects items to orders
 }
 
 model Order {
   id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now()) // Timestamp of the order
-  status      String    @default("pending") // Status (pending, in-progress, completed)
-  room        Room      @relation(fields: [roomId], references: [id])
-  roomId      Int       // Foreign key to Room
-  orderItems  OrderItem[] // Relation to the items in the order
+  createdAt   DateTime  @default(now()) // Timestamp of when the order was created
+  status      String    @default("pending") // Status (pending, completed)
+  roomNumber  String    // Room number where the order is placed
+  totalPrice  Float     @default(0.0) // Total price of the order
+  orderItems  OrderItem[] // Relation to OrderItem that stores the list of items and quantities
 }
 
 model OrderItem {
   id          Int       @id @default(autoincrement())
-  quantity    Int       // Number of items ordered
-  menu        Menu      @relation(fields: [menuId], references: [id])
-  menuId      Int       // Foreign key to Menu
+  quantity    Int       // Quantity of the item in the order
+  item        Item      @relation(fields: [itemId], references: [id])
+  itemId      Int       // Foreign key to Item
   order       Order     @relation(fields: [orderId], references: [id])
   orderId     Int       // Foreign key to Order
 }
