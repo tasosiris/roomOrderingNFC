@@ -13,6 +13,7 @@ model Item {
   description String?
   price       Float     // Price of the item
   course      String?   // Course (e.g., appetizer, main, dessert)
+  imagePath   String?   // Relative path to the image file in the public folder
   orderItems  OrderItem[] // Relation to OrderItem that connects items to orders
 }
 
